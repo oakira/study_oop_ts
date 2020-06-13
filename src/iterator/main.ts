@@ -21,4 +21,4 @@ export default class Main {
 		console.log(bookshelf.getBookList());
 	}
 }
-// new Main();
+new Main();
