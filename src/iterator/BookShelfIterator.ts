@@ -1,6 +1,6 @@
 import Iterator from './Iterator';
-import BookShelf from './BookShelf';
 import Book from './Book';
+import BookShelf from './BookShelf';
 
 export default class BookShelfIterator implements Iterator {
 	private bookshelf: BookShelf
@@ -22,7 +22,15 @@ export default class BookShelfIterator implements Iterator {
 	next(): any {
 		const book: Book = this.bookshelf.getBookAt(this.index);
 		this.index++;
-
 		return book;
+	}
+
+	remove(): void {
+		this.index--
+		if (this.index >= 0) {
+			this.bookshelf.removeBook(this.index)
+		} else {
+			console.error('call before next()');
+		}
 	}
 }

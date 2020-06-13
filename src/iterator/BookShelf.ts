@@ -6,9 +6,10 @@ import Iterator from './Iterator'
 export default class BookShelf implements Aggregater {
 	private books: Book[]
 	private last: number = 0
-
-	constructor(maxsize: number) {
-		this.books = new Array(maxsize)
+	private maxsize: number
+	constructor(maxsize: number = 0) {
+		this.books = new Array()
+		this.maxsize = maxsize
 	}
 	/**
 	 * getBookAt
@@ -17,17 +18,34 @@ export default class BookShelf implements Aggregater {
 		return this.books[index]
 	}
 	/**
+	 * getBookLIst
+	 */
+	public getBookList() {
+		return this.books;
+	}
+	/**
 	 * appendBook
 	 */
 	public appendBook(book: Book): void {
-		this.books[this.last] = book
-		this.last++
+		if (this.maxsize > this.last) {
+			this.books[this.last] = book
+			this.last++
+		} else if (this.maxsize === 0) {
+			this.books[this.last] = book
+			this.last++
+		}
+	}
+	/**
+	 * removeBook
+	 */
+	public removeBook(index: number): void {
+		this.books.splice(index, 1)
 	}
 	/**
 	 * getLength
 	 */
 	public getLength(): number {
-		return this.last
+		return this.books.length
 	}
 	/**
 	 * iterator
