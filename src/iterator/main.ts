@@ -12,7 +12,7 @@ export default class Main {
 		const it: Iterator = bookshelf.iterator()
 		let c = 0
 		while (it.hasNext()) {
-			const book: Book = it.next();
+			const book: Book = it.next();	
 			if (c % 2 != 0) {
 				it.remove()
 			}
@@ -21,4 +21,4 @@ export default class Main {
 		console.log(bookshelf.getBookList());
 	}
 }
-new Main();
+// new Main();

@@ -27,10 +27,6 @@ export default class BookShelfIterator implements Iterator {
 
 	remove(): void {
 		this.index--
-		if (this.index >= 0) {
-			this.bookshelf.removeBook(this.index)
-		} else {
-			console.error('call before next()');
-		}
+		this.bookshelf.removeBook(this.index)
 	}
 }
