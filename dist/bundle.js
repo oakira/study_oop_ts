@@ -86,62 +86,86 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/adapter/Banner.ts":
-/*!*******************************!*\
-  !*** ./src/adapter/Banner.ts ***!
-  \*******************************/
+/***/ "./src/iterator/Aggregate.ts":
+/*!***********************************!*\
+  !*** ./src/iterator/Aggregate.ts ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nclass Banner {\n    constructor(string) {\n        this.string = string;\n    }\n    /**\n     * showWithParan\n     */\n    showWithParan() {\n        console.log('(' + this.string + ')');\n    }\n    /**\n     * showWithAster\n     */\n    showWithAster() {\n        console.log('*' + this.string + '*');\n    }\n}\nexports.default = Banner;\n\n\n//# sourceURL=webpack:///./src/adapter/Banner.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\n\n\n//# sourceURL=webpack:///./src/iterator/Aggregate.ts?");
 
 /***/ }),
 
-/***/ "./src/adapter/Main.ts":
-/*!*****************************!*\
-  !*** ./src/adapter/Main.ts ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst PrintBanner_1 = __importDefault(__webpack_require__(/*! ./PrintBanner */ \"./src/adapter/PrintBanner.ts\"));\nclass Main {\n    constructor() {\n        const p = new PrintBanner_1.default(\"Hello!\");\n        p.printWeak();\n        p.printStrong();\n    }\n}\nexports.default = Main;\nnew Main();\n\n\n//# sourceURL=webpack:///./src/adapter/Main.ts?");
-
-/***/ }),
-
-/***/ "./src/adapter/Print.ts":
+/***/ "./src/iterator/Book.ts":
 /*!******************************!*\
-  !*** ./src/adapter/Print.ts ***!
+  !*** ./src/iterator/Book.ts ***!
   \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\n\n\n//# sourceURL=webpack:///./src/adapter/Print.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nclass Book {\n    constructor(name) {\n        this.name = name;\n    }\n    /**\n     * getName\n     */\n    getName() {\n        return this.name;\n    }\n}\nexports.default = Book;\n\n\n//# sourceURL=webpack:///./src/iterator/Book.ts?");
 
 /***/ }),
 
-/***/ "./src/adapter/PrintBanner.ts":
-/*!************************************!*\
-  !*** ./src/adapter/PrintBanner.ts ***!
-  \************************************/
+/***/ "./src/iterator/BookShelf.ts":
+/*!***********************************!*\
+  !*** ./src/iterator/BookShelf.ts ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst Banner_1 = __importDefault(__webpack_require__(/*! ./Banner */ \"./src/adapter/Banner.ts\"));\nclass PrintBanner extends Banner_1.default {\n    constructor(string) {\n        super(string);\n    }\n    /**\n     * printWeak\n     */\n    printWeak() {\n        this.showWithParan();\n    }\n    /**\n     * printStrong\n     */\n    printStrong() {\n        this.showWithAster();\n    }\n}\nexports.default = PrintBanner;\n\n\n//# sourceURL=webpack:///./src/adapter/PrintBanner.ts?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst BookShelfIterator_1 = __importDefault(__webpack_require__(/*! ./BookShelfIterator */ \"./src/iterator/BookShelfIterator.ts\"));\nclass BookShelf {\n    constructor(maxsize = 0) {\n        this.last = 0;\n        this.books = new Array();\n        this.maxsize = maxsize;\n    }\n    /**\n     * getBookAt\n     */\n    getBookAt(index) {\n        return this.books[index];\n    }\n    /**\n     * getBookLIst\n     */\n    getBookList() {\n        return this.books;\n    }\n    /**\n     * appendBook\n     */\n    appendBook(book) {\n        if (this.maxsize > this.last) {\n            this.books[this.last] = book;\n            this.last++;\n        }\n        else if (this.maxsize === 0) {\n            this.books[this.last] = book;\n            this.last++;\n        }\n    }\n    /**\n     * removeBook\n     */\n    removeBook(index) {\n        this.books.splice(index, 1);\n    }\n    /**\n     * getLength\n     */\n    getLength() {\n        return this.books.length;\n    }\n    /**\n     * iterator\n     */\n    iterator() {\n        return new BookShelfIterator_1.default(this);\n    }\n}\nexports.default = BookShelf;\n\n\n//# sourceURL=webpack:///./src/iterator/BookShelf.ts?");
+
+/***/ }),
+
+/***/ "./src/iterator/BookShelfIterator.ts":
+/*!*******************************************!*\
+  !*** ./src/iterator/BookShelfIterator.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nclass BookShelfIterator {\n    constructor(bookshelf) {\n        this.bookshelf = bookshelf;\n        this.index = 0;\n    }\n    hasNext() {\n        if (this.index < this.bookshelf.getLength()) {\n            return true;\n        }\n        else {\n            return false;\n        }\n    }\n    next() {\n        const book = this.bookshelf.getBookAt(this.index);\n        this.index++;\n        return book;\n    }\n    remove() {\n        this.index--;\n        this.bookshelf.removeBook(this.index);\n    }\n}\nexports.default = BookShelfIterator;\n\n\n//# sourceURL=webpack:///./src/iterator/BookShelfIterator.ts?");
+
+/***/ }),
+
+/***/ "./src/iterator/Iterator.ts":
+/*!**********************************!*\
+  !*** ./src/iterator/Iterator.ts ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\n\n\n//# sourceURL=webpack:///./src/iterator/Iterator.ts?");
+
+/***/ }),
+
+/***/ "./src/iterator/main.ts":
+/*!******************************!*\
+  !*** ./src/iterator/main.ts ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst BookShelf_1 = __importDefault(__webpack_require__(/*! ./BookShelf */ \"./src/iterator/BookShelf.ts\"));\nconst Book_1 = __importDefault(__webpack_require__(/*! ./Book */ \"./src/iterator/Book.ts\"));\nclass Main {\n    constructor() {\n        const bookshelf = new BookShelf_1.default();\n        bookshelf.appendBook(new Book_1.default(\"book1\"));\n        bookshelf.appendBook(new Book_1.default(\"book2\"));\n        bookshelf.appendBook(new Book_1.default(\"book3\"));\n        bookshelf.appendBook(new Book_1.default(\"book4\"));\n        const it = bookshelf.iterator();\n        let c = 0;\n        while (it.hasNext()) {\n            const book = it.next();\n            if (c % 2 != 0) {\n                it.remove();\n            }\n            c++;\n        }\n        console.log(bookshelf.getBookList());\n    }\n}\nexports.default = Main;\nnew Main();\n\n\n//# sourceURL=webpack:///./src/iterator/main.ts?");
 
 /***/ }),
 
 /***/ 0:
-/*!***************************************************************************************************************!*\
-  !*** multi ./src/adapter/Banner.ts ./src/adapter/Main.ts ./src/adapter/Print.ts ./src/adapter/PrintBanner.ts ***!
-  \***************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** multi ./src/iterator/Aggregate.ts ./src/iterator/Book.ts ./src/iterator/BookShelf.ts ./src/iterator/BookShelfIterator.ts ./src/iterator/Iterator.ts ./src/iterator/main.ts ***!
+  \**********************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! ./src/adapter/Banner.ts */\"./src/adapter/Banner.ts\");\n__webpack_require__(/*! ./src/adapter/Main.ts */\"./src/adapter/Main.ts\");\n__webpack_require__(/*! ./src/adapter/Print.ts */\"./src/adapter/Print.ts\");\nmodule.exports = __webpack_require__(/*! ./src/adapter/PrintBanner.ts */\"./src/adapter/PrintBanner.ts\");\n\n\n//# sourceURL=webpack:///multi_./src/adapter/Banner.ts_./src/adapter/Main.ts_./src/adapter/Print.ts_./src/adapter/PrintBanner.ts?");
+eval("__webpack_require__(/*! ./src/iterator/Aggregate.ts */\"./src/iterator/Aggregate.ts\");\n__webpack_require__(/*! ./src/iterator/Book.ts */\"./src/iterator/Book.ts\");\n__webpack_require__(/*! ./src/iterator/BookShelf.ts */\"./src/iterator/BookShelf.ts\");\n__webpack_require__(/*! ./src/iterator/BookShelfIterator.ts */\"./src/iterator/BookShelfIterator.ts\");\n__webpack_require__(/*! ./src/iterator/Iterator.ts */\"./src/iterator/Iterator.ts\");\nmodule.exports = __webpack_require__(/*! ./src/iterator/main.ts */\"./src/iterator/main.ts\");\n\n\n//# sourceURL=webpack:///multi_./src/iterator/Aggregate.ts_./src/iterator/Book.ts_./src/iterator/BookShelf.ts_./src/iterator/BookShelfIterator.ts_./src/iterator/Iterator.ts_./src/iterator/main.ts?");
 
 /***/ })
 
