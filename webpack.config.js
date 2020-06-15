@@ -14,10 +14,10 @@ glob.sync('./js/pages/**/**/*.js').map(function (file) {
 	let key = String(match.replace('./js/pages/', ''));
 	pages_js[key] = file;
 })
-glob.sync('./src/iterator/**/**/*.ts').map(function (file) {
+glob.sync('./src/template_method/**/**/*.ts').map(function (file) {
 	let reg = /(.*)(?:\.([^.]+$))/;
 	let match = file.match(reg)[1];
-	let key = String(match.replace('./src/iterator/', ''));
+	let key = String(match.replace('./src/template_method/', ''));
 	// pages_ts[key] = file;
 	pages_ts.push(file);
 })
